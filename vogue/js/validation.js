@@ -25,8 +25,8 @@ export default function validateFn(changeMenu) {
     [id!=email2] !=은 같지않다(제이쿼리용문법)
 
 **********************************************/
-// 대상요소 변수할당 ///
-const tgInput = `form.logF input[type=text][id!=email2],
+  // 대상요소 변수할당 ///
+  const tgInput = `form.logF input[type=text][id!=email2],
 form.logF input[type=password]`;
 
   $(tgInput).blur(function () {
@@ -86,10 +86,7 @@ form.logF input[type=password]`;
         // 아이디검사 불통과시
         // false결과시 들어와야 하므로 Not(!)연산자사용
         //  메시지 지우기
-        $(this)
-          .siblings(".msg")
-          .text("영문자로 시작하는 6~20글자 영문자/숫자")
-          .removeClass("on");
+        $(this).siblings(".msg").text("영문자로 시작하는 6~20글자 영문자/숫자").removeClass("on");
 
         // [불통과 pass변수 업데이트!]
         pass = false;
@@ -156,8 +153,7 @@ form.logF input[type=password]`;
     ****************************************/
     else if (cid == "email1") {
       // 1. 이메일 주소 만들기 : 앞주소@뒷주소
-      let comp =
-        eml1.val() + "@" + (seleml.val() == "free" ? eml2.val() : seleml.val());
+      let comp = eml1.val() + "@" + (seleml.val() == "free" ? eml2.val() : seleml.val());
       // 이메일 뒷주소는 직접입력("free")이면 뒷주소입력창
       // 아니면 선택박스 option value 을 가져온다!
       console.log("이메일:", comp);
@@ -191,9 +187,7 @@ form.logF input[type=password]`;
     // 2-1."선택해주세요"일 경우
     if (cv == "init") {
       // 1. 메시지 출력
-      eml1.siblings(".msg")
-      .text("이메일 옵션선택 필수!")
-      .removeClass("on");
+      eml1.siblings(".msg").text("이메일 옵션선택 필수!").removeClass("on");
 
       // 2. 직접입력창 숨기기
       eml2.fadeOut(300);
@@ -226,7 +220,6 @@ form.logF input[type=password]`;
 
       // 4. 이메일 유효성 검사함수 호출
       resEml(comp);
-
     } ////// else : 기타 이메일주소 ////
   }); /////////////// change ////////////////
 
@@ -245,30 +238,25 @@ form.logF input[type=password]`;
     -> 모든 이벤트함수와 연결하는 제이쿼리 메서드는?
     on(이벤트명,함수)
  ***********************************************/
-$("#email1, #email2").on("keyup",function(){
-  // 1. 현재 이벤트 발생 대상 아이디 읽어오기
-  let cid = $(this).attr("id");
-  // console.log("입력창id:",cid);
+  $("#email1, #email2").on("keyup", function () {
+    // 1. 현재 이벤트 발생 대상 아이디 읽어오기
+    let cid = $(this).attr("id");
+    // console.log("입력창id:",cid);
 
-  // 2. 이메일 뒷주소 셋팅하기 (선택!)
-  let backEml = 
-  cid == "email2" 
-  ? eml2.val()
-  : seleml.val() != "free" 
-  ? seleml.val()
-  : eml2.val();
-  // 현재입력 아이디가 "email2"이면 직접입력창을 읽고  
-  // 아니면 선택박스값이 "free"가 아닌 경우 선택박스값 읽고
-  // 아니면 직접입력창값을 뒷주소로 설정함!
+    // 2. 이메일 뒷주소 셋팅하기 (선택!)
+    let backEml = cid == "email2" ? eml2.val() : seleml.val() != "free" ? seleml.val() : eml2.val();
+    // 현재입력 아이디가 "email2"이면 직접입력창을 읽고
+    // 아니면 선택박스값이 "free"가 아닌 경우 선택박스값 읽고
+    // 아니면 직접입력창값을 뒷주소로 설정함!
 
-  // 이메일 전체주소 만들기
-  let comp = eml1.val() + "@" + backEml;
+    // 이메일 전체주소 만들기
+    let comp = eml1.val() + "@" + backEml;
 
-  // 이메일 유효성 검사함수 호출하기
-  resEml(comp);
+    // 이메일 유효성 검사함수 호출하기
+    resEml(comp);
 
-  // console.log($(this).val());
-}); //////////////////  keyup  //////////////////
+    // console.log($(this).val());
+  }); //////////////////  keyup  //////////////////
 
   /****************************************** 
     함수명 : resEml (result Email)
@@ -276,7 +264,7 @@ $("#email1, #email2").on("keyup",function(){
   ******************************************/
   const resEml = (comp) => {
     // comp - 이메일주소
-    console.log('이메일주소:',comp);
+    console.log("이메일주소:", comp);
     // console.log('이메일검사결과:',vReg(comp,'eml'));
 
     // 이메일 정규식 검사에 따른 메시지 보이기
@@ -284,13 +272,10 @@ $("#email1, #email2").on("keyup",function(){
       eml1.siblings(".msg").text("적합한 이메일 형식입니다!").addClass("on");
     } //////// if : 통과시 //////////
     else {
-      eml1
-        .siblings(".msg")
-        .text("맞지않는 이메일 형식입니다!")
-        .removeClass("on");
+      eml1.siblings(".msg").text("맞지않는 이메일 형식입니다!").removeClass("on");
 
-        // [불통과 pass변수 업데이트!]
-        pass = false;
+      // [불통과 pass변수 업데이트!]
+      pass = false;
     } //////// else : 불통과시 ////////
   }; ///////////// resEml /////////////////
 
@@ -316,8 +301,7 @@ $("#email1, #email2").on("keyup",function(){
       }); /// css ///
     }); ///// click /////
 
-
-    /********************************************* 
+  /********************************************* 
     가입하기(submit) 버튼 클릭시 처리하기 
     __________________________________
 
@@ -337,49 +321,94 @@ $("#email1, #email2").on("keyup",function(){
     ->>> trigger(이벤트명)
 
   *********************************************/
-// 통과여부변수(true/false값)
-let pass;
+  // 통과여부변수(true/false값)
+  let pass;
 
- $("#btnj").click((e)=>{
+  $("#btnj").click((e) => {
+    console.log("가입해~!");
 
-  console.log("가입해~!");
+    // 1. 기본이동(서브밋) 막기
+    e.preventDefault();
 
-  // 1. 기본이동(서브밋) 막기
-  // e.preventDefault();
+    // 2. pass통과여부 변수에 true할당하기
+    pass = true;
 
-  // 2. pass통과여부 변수에 true할당하기
-  pass = true;
+    // 3. 입력창 blur이벤트 강제발생하기
+    $(tgInput).trigger("blur");
 
-  // 3. 입력창 blur이벤트 강제발생하기
-  $(tgInput).trigger("blur");
+    console.log("통과여부:", pass);
 
-  console.log("통과여부:",pass);
+    // 4. 검사결과에 따라 메시지 보이기
+    if (pass) {
+     
 
-  // 4. 검사결과에 따라 메시지 보이기
-  if (pass) {
-    alert("회원가입을 축하드립니다! 짝짝짝!");
-    // 원래는 POST방식으로 DB에 회원가입정보를
-    // 전송하여 입력후 DB처리완료시 성공메시지나
-    // 로그인 페이지로 넘겨준다! 그런데 개별 페이지가 아닌
-    // 리액트 SPA방식이므로 일반적인 페이지 이동이 불가하다!
-    // 어떻게하나? -> 리액트 페이지변경에 사용하는
-    // 상태변수를 업데이트하여 페이지 이동을 해야함!!!
-    // changeMenu("login");
-    // 리액트 상태변수 변경시 관련 컴포넌트 모두 업데이트!
+      //메서드로 서브밋하기 -> 동기적 처리(그 페이지로 이동함)
+      // $(".logF").submit();
 
-  } //////// if : 통과시 ///////////
-  else {
-    ///// 불통과시 //////
-    alert("입력을 수정하세요~!");
-  } //////// else : 불통과시 //////
+      /* 
+                [ Ajax를 이용한 POST방식으로 DB에
+                데이터 입력하기 ]
 
+                AJAX = Asyncronous Javascript and XML
 
- }); //////////// click ///////////////////
+                - 비동기통신이란? 쉽게 말해서 페이지가
+                새로고쳐지지 않고 그대로 있으면서 일부분만
+                서버통신을 하는 것을 말한다!
+                - 제이쿼리는 POST방식으로 ajax를 처리하는
+                메서드를 제공한다!
 
-
-
+                [ POST방식 Ajax 메서드 ]
+                $.post(URL,data,callback)
+                $.post(전송할페이지,전송할데이터,전송후콜백함수)
+            
+            */
 
 
+          $.post(
+            //1. 전송할 페이지
+            "process/ins.php",
+            //2.전송할데이터
+            {
+              // 1.아이디
+              "mid":$("#mid").val(),
+              // 2.비번
+              "mpw":$("#mpw").val(),
+              // 3.이름
+              "mnm":$("#mnm").val(),
+              // 4.성별 : 라디오태그에 value속성필수!
+              "gen":$(":radio[name=gen]:checked").val(),
+              // 5-1.이메일 앞주소
+              "email1":$("#email1").val(),
+              // 5-2.이메일 뒷주소
+              "seleml":$("#seleml").val(),
+              // 5-3.직접입력 이메일 뒷주소
+              "email2":$("#email2").val()
+            },
+            //3. 전송후콜백함수
+            function(res){
+              //res - 백엔드 ins.php의 리턴값
+              console.log("서버리턴값",res);
+              // 1. 서버리턴값이 ok면 성공
+              if(res == "ok"){
+                alert("회원가입을 축하드립니다! 짝짝짝!");
+                // 리액트 메뉴변경 상태변수 업데이트로 페이지 이동
+                changeMenu("login");
+              }
+              // 서버리턴값이 ok가 아니면 실패
+              else{
+                alert("회원가입 실패"+res);
+              }
+
+            }////콜백함수///
+            );//////////////제이쿼리 post메서드////////////
+
+      // changeMenu("login");
+    } //////// if : 통과시 ///////////
+    else {
+      ///// 불통과시 //////
+      alert("입력을 수정하세요~!");
+    } //////// else : 불통과시 //////
+  }); //////////// click ///////////////////
 } ////////////////// validateFn /////////////////
 
 /*//////////////////////////////////////////////////////
@@ -413,8 +442,7 @@ function vReg(val, cid) {
       // (?=.*[!@#$%^&+=]) 특수문자 사용체크!
       break;
     case "eml": // 이메일
-      reg =
-        /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+      reg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
       // 이메일 형식에 맞는지 검사하는 정규식
       break;
   } //////////// switch case문 //////////////////

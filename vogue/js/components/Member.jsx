@@ -83,14 +83,16 @@ export default function Member({changeMenu}) {
               <li>
                 <span className="itit">성별</span>
                 <label htmlFor="gen1">남성</label>
-                <input type="radio" name="gen" id="gen1" />
+                <input type="radio" name="gen" id="gen1" value="m" />
                 <label htmlFor="gen2">여성</label>
-                <input type="radio" name="gen" id="gen2" checked />
+                <input type="radio" name="gen" id="gen2" value="w" checked />
                 {/* <!-- 라디오버튼의 name 속성을 
-                            같은 이름으로 쓰면 그룹핑되어
-                            하나만 선택된다! 
-  
-                            checked 속성 - 기본체크설정 -->*/}
+                  같은 이름으로 쓰면 그룹핑되어
+                  하나만 선택된다! 
+
+                  checked 속성 - 기본체크설정 -->
+                  -> 백엔드에서 본 라디오버튼 선택값을 읽으려면 value속성이 필수
+                  */}
               </li>
               {/* <!-- 이메일 --> */}
               <li>
