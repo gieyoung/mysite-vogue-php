@@ -125,8 +125,13 @@
       data-plugins="transform-es2015-modules-umd"
       type="text/babel"
     ></script>
+
+    <!-- 로그인 셋팅 전역함수 불러오기 -->
+    <script src="./js/login_set.js"></script>
+
   </head>
   <body>
     <div id="root"></div>
+    <?php include "./include/login_session.php" ?>
   </body>
 </html>
