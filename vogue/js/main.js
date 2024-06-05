@@ -46,29 +46,30 @@ function Layout() {
     window.scrollTo(0, 0);
   }, [menu]);
 
-  // 로그인시 필요한 사용자 확인 박스 만들기
-  React.useLayoutEffect(()=>{
+  // 로그인시 필요한 사용자 확인 박스 만들기 ////
+  // 처음 화면 랜더링 바로직전 한번만 실행코드 구역에 구현
+  React.useLayoutEffect(() => {
     // 1. 상단영역(#top-area)에 로그인 박스넣기
     $("#top-area").append('<div id="loginMsg"></div>');
     // 2. 로그인 박스 CSS 디자인하기
     $("#loginMsg").css({
-        position: "absolute",
-        width: "400px",
-        top: "5%",
-        left: "50%",
-        transform: "translateX(-50%)",
-        fontSize: "14px",
-        fontWeight: "bold",
-        textAlign: "center",
-        whiteSpace: "nowrap",
-        zIndex:-1
+      position: "absolute",
+      width: "400px",
+      top: "5%",
+      left: "50%",
+      transform: "translateX(-50%)",
+      fontSize: "14px",
+      fontWeight: "bold",
+      textAlign: "center",
+      whiteSpace: "nowrap",
+      zIndex: -1,
     }); ////// css //////////
-  },[]);///////////[]를 사용하여 처음 한번만 실행
+  }, []); // []를 사용하여 처음 한번만 실행!
 
-  React.useLayoutEffect(()=>{
-    // 로그인 처리 함수 호출
+  React.useLayoutEffect(() => {
+    // 로그인 처리함수 호출!
     loginSet(login_msg, login_auth);
-  });
+  },[]); // 처음 한번만 로그인 처리함수 호출!
 
   // 코드 리턴구역 ////////////
   return (

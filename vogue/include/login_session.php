@@ -20,7 +20,8 @@ if(isset($_SESSION["mid"])){
 
     // 로그인 셋팅 login_set.js파일에서 생성한 전역변수에
     // 메시지와 권한 셋팅하기!!!
-    // login_set.js파일에서 설정한 전역변수에 백엔드 설정값을 설정해준다.
+    // login_set.js 파일에서 설정한 전역변수에
+    // 백엔드 설정값을 셋팅해 준다!
     echo "<script>
         login_msg = '$msg';
         login_auth = '$auth';

@@ -3,14 +3,18 @@
     기능: PHP코드에서 세션변수로 
         셋팅된 값을 화면에 반영한다
   */ /////////////////////////////////////////
-  // 백엔드 개발자가 전역변수인 아래 변수에 로그인 메시지와 로그인 권한 정보를 할당해준다.
+// 백엔드 개발자가 전역변수인 아래 변수에
+// 로그인 메시지와 로그인 권한 정보를 할당해 준다!
+// login_msg : 로그인 메시지, login_auth : 권한
 let login_msg, login_auth;
 function loginSet(msg, auth) {
   // msg-메시지, auto-권한
+
   // 콘솔창에 전달값을 찍어봄!
   console.log(msg + "/" + auth);
-  if (!msg) return;
 
+  // 만약 msg가 null / undefined 면 리턴함!
+  if (!msg) return;
 
   // 1. 로그인 환영 메시지 출력하기
   $("#loginMsg").text(msg);
@@ -49,7 +53,7 @@ function loginSet(msg, auth) {
             alert("안전하게 로그아웃 되었습니다!");
 
             // 첫페이지로 리로드
-            location.href="index.php";
+            location.href = "index.php";
           } ////// if ////////////////
           else {
             // 메시지
@@ -69,10 +73,10 @@ function loginSet(msg, auth) {
   if (auth === "A" || auth === "S") {
     $(".sns").append(
       `
-      <a href="#" class="fi fi-user-secret" title="관리자" style="color:red">
-          <span class="ir"> 관리자 </span>
-      </a>                  
-      `
+        <a href="#" class="fi fi-user-secret" title="관리자" style="color:red">
+            <span class="ir"> 관리자 </span>
+        </a>                  
+    `
     );
 
     // 관리자 페이지 링크설정

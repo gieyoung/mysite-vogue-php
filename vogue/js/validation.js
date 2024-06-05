@@ -86,7 +86,10 @@ form.logF input[type=password]`;
         // 아이디검사 불통과시
         // false결과시 들어와야 하므로 Not(!)연산자사용
         //  메시지 지우기
-        $(this).siblings(".msg").text("영문자로 시작하는 6~20글자 영문자/숫자").removeClass("on");
+        $(this)
+          .siblings(".msg")
+          .text("영문자로 시작하는 6~20글자 영문자/숫자")
+          .removeClass("on");
 
         // [불통과 pass변수 업데이트!]
         pass = false;
@@ -97,62 +100,76 @@ form.logF input[type=password]`;
         // '이미 사용중인 아이디입니다' 와 같은 메시지출력
         // 2. 만약 DB조회하여 같은 아이다가 없다면
         // '멋진 아이디네요~!'와 같은 메시지출력
+
         /* 
-                [ Ajax로 중복아이디 검사하기! ]
-                ajax 처리 유형 2가지
+          [ Ajax로 중복아이디 검사하기! ]
+          ajax 처리 유형 2가지
 
-                1) post 방식 처리 메서드
-                - $.post(URL,data,callback)
+          1) post 방식 처리 메서드
+          - $.post(URL,data,callback)
 
-                2) get 방식 처리 메서드
-                - $.get(URL,callback)
-                -> get방식은 URL로 키=값 형식으로 데이터전송함!
+          2) get 방식 처리 메서드
+          - $.get(URL,callback)
+          -> get방식은 URL로 키=값 형식으로 데이터전송함!
 
-                3) 위의 2가지 유형 중 처리선택 메서드
-                - $.ajax({
-                    전송할페이지,
-                    전송방식,
-                    보낼데이터,
-                    전송할데이터타입,
-                    비동기옵션,
-                    성공처리,
-                    실패처리
-                })
-                -> 보내는 값은 하나(객체데이터)
-                -> 객체안에 7가지 유형의 데이터를 보냄!
-            */
+          3) 위의 2가지 유형 중 처리선택 메서드
+          - $.ajax({
+              전송할페이지,
+              전송방식,
+              보낼데이터,
+              전송할데이터타입,
+              비동기옵션,
+              성공처리,
+              실패처리
+          })
+          -> 보내는 값은 하나(객체데이터)
+          -> 객체안에 7가지 유형의 데이터를 보냄!
+      */
         $.ajax({
-          // 1.전송할페이지(url),
+          // 1.전송할페이지(url)
           url: "./process/chkID.php",
-          // 2.전송방식(type),
+          // 2.전송방식(type)
           type: "post",
-          // 3.보낼데이터(data),
+          // 3.보낼데이터(data)
           data: { mid: $("#mid").val() },
-          // 4.전송할데이터타입(dataType),
-          datatype: "html",
-          // 5.비동기옵션(async),
+          // 4.전송할데이터타입(dataType)
+          dataType: "html",
+          // 5.비동기옵션(async)
           async: false,
-          // -> pass변수 업데이트를 동기적으로 처리하기 위해 비동기옵션을 false로 처리해야 함
-          // 6.성공처리(success),
+          // -> pass변수 업데이트를 동기적으로
+          // 처리하기 위해 비동기옵션을 false로
+          // 처리해야한다!
+          // 6.성공처리(success)
           success: function (res) {
-            // res - return된 결과 값
+            // res - 리턴된 결과값
             if (res == "ok") {
-              $("#mid").siblings(".msg").text("멋진아이디네요!").addClass("on");
-            } ///if////
+              // 아이디중복 통과시
+              $("#mid")
+                .siblings(".msg")
+                .text("멋진아이디네요!")
+                .addClass("on");
+              // 클래스 on을 넣으면 녹색글자임!
+            } /// if ///
+            // 아이디 중복일 경우
             else {
-              $("#mid").siblings(".msg").text("이미 사용중인 아이디입니다").removeClass("on");
+              $("#mid")
+                .siblings(".msg")
+                .text("이미 사용중인 아이디입니다")
+                .removeClass("on");
 
               // [불통과 pass변수 업데이트!]
               pass = false;
-              console.log("중복아이디",pass);
-            } ////else////
+              console.log("중복ID pass:", pass);
+            } /// else ///
           },
-          // 7.실패처리(error),
+          // 7.실패처리(error)
+          // xhr - XMLHttpRequest객체
+          // status - 실패상태코드
+          // error - 에러결과값
           error: function (xhr,status,error) {
-            alert("연결처리 실패"+error)
-          },
+            alert("연결처리실패:"+error);
+          } //// error ////
         });
-        // 클래스 on을 넣으면 녹색글자임!
       } //////// else ////////
     } ///////////// else if //////////
     /**************************************** 
@@ -206,7 +223,8 @@ form.logF input[type=password]`;
     ****************************************/
     else if (cid == "email1") {
       // 1. 이메일 주소 만들기 : 앞주소@뒷주소
-      let comp = eml1.val() + "@" + (seleml.val() == "free" ? eml2.val() : seleml.val());
+      let comp =
+        eml1.val() + "@" + (seleml.val() == "free" ? eml2.val() : seleml.val());
       // 이메일 뒷주소는 직접입력("free")이면 뒷주소입력창
       // 아니면 선택박스 option value 을 가져온다!
       console.log("이메일:", comp);
@@ -297,7 +315,12 @@ form.logF input[type=password]`;
     // console.log("입력창id:",cid);
 
     // 2. 이메일 뒷주소 셋팅하기 (선택!)
-    let backEml = cid == "email2" ? eml2.val() : seleml.val() != "free" ? seleml.val() : eml2.val();
+    let backEml =
+      cid == "email2"
+        ? eml2.val()
+        : seleml.val() != "free"
+        ? seleml.val()
+        : eml2.val();
     // 현재입력 아이디가 "email2"이면 직접입력창을 읽고
     // 아니면 선택박스값이 "free"가 아닌 경우 선택박스값 읽고
     // 아니면 직접입력창값을 뒷주소로 설정함!
@@ -325,7 +348,10 @@ form.logF input[type=password]`;
       eml1.siblings(".msg").text("적합한 이메일 형식입니다!").addClass("on");
     } //////// if : 통과시 //////////
     else {
-      eml1.siblings(".msg").text("맞지않는 이메일 형식입니다!").removeClass("on");
+      eml1
+        .siblings(".msg")
+        .text("맞지않는 이메일 형식입니다!")
+        .removeClass("on");
 
       // [불통과 pass변수 업데이트!]
       pass = false;
@@ -393,31 +419,30 @@ form.logF input[type=password]`;
 
     // 4. 검사결과에 따라 메시지 보이기
     if (pass) {
-      //메서드로 서브밋하기 -> 동기적 처리(그 페이지로 이동함)
+      // 메서드로 서브밋하기 -> 동기적 처리(그 페이지로 이동함)
       // $(".logF").submit();
 
       /* 
-                [ Ajax를 이용한 POST방식으로 DB에
-                데이터 입력하기 ]
+      [ Ajax를 이용한 POST방식으로 DB에
+      데이터 입력하기 ]
 
-                AJAX = Asyncronous Javascript and XML
+      AJAX = Asyncronous Javascript and XML
 
-                - 비동기통신이란? 쉽게 말해서 페이지가
-                새로고쳐지지 않고 그대로 있으면서 일부분만
-                서버통신을 하는 것을 말한다!
-                - 제이쿼리는 POST방식으로 ajax를 처리하는
-                메서드를 제공한다!
+      - 비동기통신이란? 쉽게 말해서 페이지가
+      새로고쳐지지 않고 그대로 있으면서 일부분만
+      서버통신을 하는 것을 말한다!
+      - 제이쿼리는 POST방식으로 ajax를 처리하는
+      메서드를 제공한다!
 
-                [ POST방식 Ajax 메서드 ]
-                $.post(URL,data,callback)
-                $.post(전송할페이지,전송할데이터,전송후콜백함수)
-            
-            */
-
+      [ POST방식 Ajax 메서드 ]
+      $.post(URL,data,callback)
+      $.post(전송할페이지,전송할데이터,전송후콜백함수)
+  
+  */
       $.post(
-        //1. 전송할 페이지
+        // 1.전송할페이지
         "process/ins.php",
-        //2.전송할데이터
+        // 2.전송할데이터 : 객체로 보냄
         {
           // 1.아이디
           mid: $("#mid").val(),
@@ -434,24 +459,22 @@ form.logF input[type=password]`;
           // 5-3.직접입력 이메일 뒷주소
           email2: $("#email2").val(),
         },
-        //3. 전송후콜백함수
+        // 3.전송후콜백함수
         function (res) {
-          //res - 백엔드 ins.php의 리턴값
-          console.log("서버리턴값", res);
-          // 1. 서버리턴값이 ok면 성공
+          // res - 백엔드 ins.php의 리턴값
+          console.log("서버리턴값:", res);
+          // 1.서버리턴값이 "ok"이면 성공
           if (res == "ok") {
             alert("회원가입을 축하드립니다! 짝짝짝!");
-            // 리액트 메뉴변경 상태변수 업데이트로 페이지 이동
+            // 리액트 메뉴변경 상태변수 업데이트로 페이지이동
             changeMenu("login");
           }
-          // 서버리턴값이 ok가 아니면 실패
+          // 2.서버리턴값이 "ok"가 아니면 실패
           else {
-            alert("회원가입 실패" + res);
+            alert("회원가입에 실패하였습니다!" + res);
           }
-        } ////콜백함수///
-      ); //////////////제이쿼리 post메서드////////////
-
-      // changeMenu("login");
+        } ///// 콜백함수 /////
+      ); //////////// 제이쿼리 post메서드 ///////
     } //////// if : 통과시 ///////////
     else {
       ///// 불통과시 //////
@@ -491,7 +514,8 @@ function vReg(val, cid) {
       // (?=.*[!@#$%^&+=]) 특수문자 사용체크!
       break;
     case "eml": // 이메일
-      reg = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+      reg =
+        /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
       // 이메일 형식에 맞는지 검사하는 정규식
       break;
   } //////////// switch case문 //////////////////
