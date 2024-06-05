@@ -56,6 +56,9 @@ export default function validateLogin(changeMenu) {
           if (res == "ok") {
             alert("로그인에 성공하였습니다!");
 
+            location.href = "index.php";
+
+
             // 리액트 상태관리변수 업데이트로 페이지이동하기
             // changeMenu("home"); // 첫페이지
           } /// if ///
