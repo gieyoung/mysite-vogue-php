@@ -59,6 +59,9 @@ export default function validateLogin(changeMenu) {
             // 페이지를 이동하여 현재 페이지를 다시 읽는다
             location.href = "index.php";
 
+            location.href = "index.php";
+
+
             // 리액트 상태관리변수 업데이트로 페이지이동하기
             // changeMenu("home"); // 첫페이지
           } /// if ///
